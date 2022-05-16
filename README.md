@@ -49,7 +49,7 @@ These targets rely on config.sh for exported variables, which can be overwritten
 
 2. A sample curl is provided below.
    ``` sh
-   curl -L -X POST 'http://127.0.0.1:5000/grpc_request?cmd=RecallServiceStub.MBPGetRecallItems&proto=RcmdReq&server=10.168.131.216:37741' \
+   curl -L -X POST 'http://127.0.0.1:5000/grpc_request?cmd=YourStub.RPC&proto=HelloRequest&server=192.168.1.1:12345' \
    -H 'content-type: application/json' \
    --data-raw '{"Userid":1}'
    ```
