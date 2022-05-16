@@ -23,33 +23,44 @@ This project serves as a proxy between grpc and http.
     pip3 install -r requirements.txt
     ```
 ## Makefile
-There are 4 targets in the make file. The default goal is download-compile-run.
+There are 6 targets in the make file. The default goal is download-compile-run.
 These targets rely on config.sh for exported variables, which can be overwritten via environment variables.
 
-| target               | desc                                   | command             |
-|----------------------|----------------------------------------|---------------------|
-| download-proto       | downloads the proto from srec_dd_basis | make download-proto |
-| compile-proto        | compiles the proto in the proto folder | make compile-proto  |
-| run                  | runs the flask client                  | make run            |
- | download-compile-run | default target                         | make                |
+| **target**            | **desc**                               | **command**               |
+|-----------------------|----------------------------------------|---------------------------|
+| download-proto        | downloads the proto from srec_dd_basis | make download-proto       |
+| compile-proto         | compiles the proto in the proto folder | make compile-proto        |
+| run-client            | runs the flask client                  | make run-client           |
+| download-compile-run | default target                        | make                        |
+| compile-sample-proto  | compiles the sample proto              | make compile-sample-proto |
+| run-server            | run the sample server                  | make run-server           |
 
    
 ## How to construct the curl request
-1. The curl statement comprises the following component.
+   ### POST grpc_request
    ``` sh
-   curl -L -X POST 'http://<local_server>/grpc_request?cmd=<stub_class>.<attr_name>&proto=<request_proto>&server=<remote_server>' \
+   curl -X POST 'http://<local_server>/grpc_request?cmd=<stub_class>.<attr_name>&proto=<request_proto>&server=<remote_server>' \
    -H 'content-type: application/json' \
-   --data-raw '<json_data>'
-   ```
-   1. **local_proxy_server**: ip address of this application
-   2. **stub_class**: the name of the stub class found in _pb2_grpc.py
-   3. **attr_name**: the attribute name belonging to the stub class
-   4. **proto**: the proto request found in _pb2.py
-   5. **remote_server**: ip address of the remote brpc/grpc server
+   -d '<json_data>'
+   ``` 
+   | **component**      | **desc**                                         |
+   |--------------------|--------------------------------------------------|
+   | local_proxy_server | ip address of flask client                       |
+   | stub_class         | the name of the stub class found in _pb2_grpc.py |
+   | attr_name          | the attribute name belonging to the stub class   |
+   | proto              | the proto request found in _pb2.py               |
+   | remote_server      | ip address of the brpc/grpc server               |
 
-2. A sample curl is provided below.
+   ### Sample curl
+   1. RecallServiceStub.MBPGetRecallItems (Requires vpn via sshuttle)
    ``` sh
-   curl -L -X POST 'http://127.0.0.1:5000/grpc_request?cmd=YourStub.RPC&proto=HelloRequest&server=192.168.1.1:12345' \
+   curl -X POST 'http://127.0.0.1:5000/grpc_request?cmd=RecallServiceStub.MBPGetRecallItems&proto=RcmdReq&server=10.168.20.86:41713' \
    -H 'content-type: application/json' \
-   --data-raw '{"Userid":1}'
+   -d '{"Userid":1}'
+   ```
+   2. GreeterStub.SayHello (Requires to make compile-sample-proto, run flask client and sample server)
+   ``` sh
+   curl -X POST 'http://127.0.0.1:5000/grpc_request?cmd=GreeterStub.SayHello&proto=HelloRequest&server=127.0.0.1:50051' \
+   -H 'content-type: application/json' \
+   -d '{"name":"Peter", "age": 28, "contact":[{"email": "peter.ho@shopee.com"}, {"phone": "91234567"}]}'
    ```
