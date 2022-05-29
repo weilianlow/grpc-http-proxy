@@ -16,13 +16,13 @@ class ProtoClassCollection:
     def get_collection(self):
         return self._dct
 
-    def get_stub_func(self, channel, cmd):
+    def get_channel_unary(self, channel, cmd):
         stub_class = self._dct.get(cmd[0], None)
-        stub = None
+        chan_unary = None
         if stub_class:
             stub_instance = stub_class(channel)
-            stub = getattr(stub_instance, cmd[1])
-        return stub
+            chan_unary = getattr(stub_instance, cmd[1])
+        return chan_unary
 
     @classmethod
     def inspect_module(cls, mod_name, full_path, predicate=inspect.isclass):

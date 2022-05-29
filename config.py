@@ -9,3 +9,5 @@ if not PROTO_ROOT:
     sys.exit()
 STUBS = ProtoClassCollection(PROTO_ROOT, '_pb2_grpc.py')
 PROTOS = ProtoClassCollection(PROTO_ROOT, '_pb2.py')
+COMMANDS_DUMP = None
+PROTOS_DUMP = None
