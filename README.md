@@ -55,7 +55,7 @@ These targets rely on config.sh for exported variables, which can be overwritten
    | remote_server  | ip address of brpc/grpc server                         |
 
    #### Sample cURL
-   1. RecallServiceStub.MBPGetRecallItems (Requires vpn via sshuttle)
+   1. ItemServiceStub.GetItems (Requires vpn via sshuttle)
    ``` sh
    curl -X POST 'localhost:5000/grpc_request?cmd=ItemServiceStub.GetItems&proto=RcmdReq&server=127.0.0.1:5005' \
    -H 'content-type: application/json' \
