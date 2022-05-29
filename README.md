@@ -1,7 +1,7 @@
 # grpc-http-proxy
 This project serves as a proxy between grpc and http. 
 
-## Installation
+## Installations
 1. Git clone this repo.
 
 2. Create a virtual environment in the root folder of the git repo.<br/>
