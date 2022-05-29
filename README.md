@@ -57,7 +57,7 @@ These targets rely on config.sh for exported variables, which can be overwritten
    #### Sample cURL
    1. RecallServiceStub.MBPGetRecallItems (Requires vpn via sshuttle)
    ``` sh
-   curl -X POST 'localhost:5000/grpc_request?cmd=RecallServiceStub.MBPGetRecallItems&proto=RcmdReq&server=10.168.20.86:41713' \
+   curl -X POST 'localhost:5000/grpc_request?cmd=ItemServiceStub.GetItems&proto=RcmdReq&server=127.0.0.1:5005' \
    -H 'content-type: application/json' \
    -d '{"Userid":1}'
    ```
