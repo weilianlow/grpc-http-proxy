@@ -1,5 +1,5 @@
 # get proto
-export GIT_REPO_PROTO=${GIT_REPO_PROTO:="gitlab@git.garena.com:shopee/recommend/srec_protos.git"}
+export GIT_REPO_PROTO=${GIT_REPO_PROTO:="git@github.com:protocolbuffers/protobuf.git"}
 export PROTO_BASE_FOLDER=${PROTO_BASE_FOLDER:="proto"}
 export BRANCH=${BRANCH:="master"}
 # protoc
